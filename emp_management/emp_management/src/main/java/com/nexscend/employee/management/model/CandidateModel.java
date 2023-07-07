@@ -12,7 +12,7 @@ public class CandidateModel {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private Long contect;
+	private Long contact;
 	private String skills;
 	private String joining;
 	private String comments;
@@ -59,12 +59,12 @@ public class CandidateModel {
 		this.email = email;
 	}
 
-	public Long getContect() {
-		return contect;
+	public Long getContact() {
+		return contact;
 	}
 
-	public void setContect(Long contect) {
-		this.contect = contect;
+	public void setContact(Long contact) {
+		this.contact = contact;
 	}
 
 	public String getSkills() {
@@ -102,7 +102,7 @@ public class CandidateModel {
 	@Override
 	public String toString() {
 		return "CandidateResponse [id=" + id + ", position=" + position + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", email=" + email + ", contect=" + contect + ", skills=" + skills + ", joining=" + joining
+				+ lastName + ", email=" + email + ", contect=" + contact + ", skills=" + skills + ", joining=" + joining
 				+ ", comments=" + comments + ", fileName=" + fileName + "]";
 	}
 

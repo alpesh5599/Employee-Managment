@@ -1,5 +1,7 @@
 package com.nexscend.employee.management.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nexscend.employee.management.service.DocumentService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("api/document")
@@ -121,4 +125,13 @@ public class DocumentController {
 //		return ResponseEntity.status(HttpStatus.CREATED).body(saveResume);
 //		
 //	}
+	
+	
+	@PostMapping("/upload")
+	public void uploadFile(HttpServletRequest request) throws IOException {
+//	 System.out.println(fileData.get);
+		InputStream inputStream = request.getInputStream();
+		
+		
+	}
 }

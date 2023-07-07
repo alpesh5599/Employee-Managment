@@ -40,7 +40,7 @@ public class CandidateServiceImpl implements CandidateService {
 		candidate.setFirstName(request.getFirstName());
 		candidate.setLastName(request.getLastName());
 		candidate.setEmail(request.getEmail());
-		candidate.setContect(request.getContect());
+		candidate.setContect(request.getContact());
 		candidate.setSkills(request.getSkills());
 		candidate.setJoining(request.getJoining());
 		
