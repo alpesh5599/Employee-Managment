@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nexscend.employee.management.model.ResponseBean;
+
 public interface DocumentService {
 
 	Map<String, String> saveDocument(MultipartFile file, String request);
@@ -12,4 +14,5 @@ public interface DocumentService {
 	
 	Object saveFile(MultipartFile file);
 	
+	ResponseBean getFile(Integer id);
 }

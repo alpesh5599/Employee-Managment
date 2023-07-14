@@ -2,8 +2,10 @@ package com.nexscend.employee.management.Abstract;
 
 import java.util.Date;
 
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 
@@ -11,7 +13,8 @@ import jakarta.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class AbstactClass {
 	
-	@EmbeddedId
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 	// Record Created Date
 	private Date createdDate;

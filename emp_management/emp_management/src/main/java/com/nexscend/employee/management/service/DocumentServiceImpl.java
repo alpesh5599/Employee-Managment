@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,8 @@ import org.springframework.util.unit.DataSize;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nexscend.employee.management.entity.DocumentDetails;
+import com.nexscend.employee.management.model.DocumentModel;
+import com.nexscend.employee.management.model.ResponseBean;
 import com.nexscend.employee.management.property.DocumentStorageProperty;
 import com.nexscend.employee.management.repository.DocumentRepository;
 import com.nexscend.employee.management.utils.Status;
@@ -166,6 +169,33 @@ public class DocumentServiceImpl implements DocumentService {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 		}
 	    
+		return response;
+	}
+	
+	@Override
+	public ResponseBean getFile(Integer id) {
+
+		ResponseBean response = new ResponseBean();
+
+		Optional<DocumentDetails> documents = repository.findById(id);
+
+		if (!documents.isEmpty()) {
+			DocumentDetails file = documents.get();
+		
+			DocumentModel documentModel = new DocumentModel();
+
+			documentModel.setName(file.getName());
+			documentModel.setFileData(file.getFileData());
+
+			response.setStatusCode(HttpStatus.OK.value());
+			response.setData(documentModel);
+			response.setMessage("File Get Succesfully");
+		} else {
+			response.setStatusCode(HttpStatus.BAD_REQUEST.value());
+			response.setMessage("No Records Found");
+			response.setData(null);
+		}
+
 		return response;
 	}
 

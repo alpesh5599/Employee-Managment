@@ -1,10 +1,8 @@
 package com.nexscend.employee.management.model;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 @Component
-@Configuration
 public class CandidateModel {
 
 	private Integer id;

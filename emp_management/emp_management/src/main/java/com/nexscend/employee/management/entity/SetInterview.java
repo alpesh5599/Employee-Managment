@@ -2,29 +2,29 @@ package com.nexscend.employee.management.entity;
 
 import java.time.LocalDateTime;
 
+import com.nexscend.employee.management.Abstract.AbstactClass;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="setInterview")
-public class SetInterview {
+public class SetInterview extends AbstactClass{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer interviewId;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Integer interviewId;
 	private String interviewerName;
 	private LocalDateTime interviewDateTime;
 	private String interviewOutCome;
 	private String feedback;
-	public Integer getInterviewId() {
-		return interviewId;
-	}
-	public void setInterviewId(Integer interviewId) {
-		this.interviewId = interviewId;
-	}
+	
+//	public Integer getInterviewId() {
+//		return interviewId;
+//	}
+//	public void setInterviewId(Integer interviewId) {
+//		this.interviewId = interviewId;
+//	}
 	public String getInterviewerName() {
 		return interviewerName;
 	}
@@ -51,7 +51,7 @@ public class SetInterview {
 	}
 	@Override
 	public String toString() {
-		return "SetInterview [interviewId=" + interviewId + ", interviewerName=" + interviewerName
+		return "SetInterview [interviewerName=" + interviewerName
 				+ ", interviewDateTime=" + interviewDateTime + ", interviewOutCome=" + interviewOutCome + ", feedback="
 				+ feedback + "]";
 	}

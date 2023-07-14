@@ -12,12 +12,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.unit.DataSize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nexscend.employee.management.model.ResponseBean;
 import com.nexscend.employee.management.service.DocumentService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -133,5 +136,12 @@ public class DocumentController {
 		InputStream inputStream = request.getInputStream();
 		
 		
+	}
+	
+	
+	@GetMapping("/files/{id}")
+	public ResponseBean getFile(@PathVariable Integer id) {
+		ResponseBean fileDB = documentService.getFile(id);
+		return fileDB;
 	}
 }

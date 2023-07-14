@@ -7,20 +7,19 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Date;
 
+import com.nexscend.employee.management.Abstract.AbstactClass;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "DocumentDetails")
-public class DocumentDetails {
+public class DocumentDetails extends AbstactClass {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Integer id;
 	private String name;
 	private String type;
 
@@ -37,13 +36,13 @@ public class DocumentDetails {
 	
 	public static final int RADIX = 16;
 	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+//	public Integer getId() {
+//		return id;
+//	}
+//
+//	public void setId(Integer id) {
+//		this.id = id;
+//	}
 
 	public String getName() {
 		return name;
@@ -109,7 +108,7 @@ public class DocumentDetails {
 
 	@Override
 	public String toString() {
-		return "FileDetails [id=" + id + ", name=" + name + ", type=" + type + ", fileData=" + Arrays.toString(fileData)
+		return "FileDetails [name=" + name + ", type=" + type + ", fileData=" + Arrays.toString(fileData)
 				+ ", candidateId=" + candidateId + "]";
 	}
 }

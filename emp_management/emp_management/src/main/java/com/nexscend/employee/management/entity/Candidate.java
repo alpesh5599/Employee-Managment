@@ -1,18 +1,17 @@
 package com.nexscend.employee.management.entity;
 
+import com.nexscend.employee.management.Abstract.AbstactClass;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "candidate")
-public class Candidate {
+public class Candidate extends AbstactClass{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Integer id;
 	private String position;
 	private String firstName;
 	private String lastName;
@@ -27,13 +26,13 @@ public class Candidate {
 	// Status for managing entity in Db.
 	private Integer status;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+//	public Integer getId() {
+//		return id;
+//	}
+//
+//	public void setId(Integer id) {
+//		this.id = id;
+//	}
 
 	public String getPosition() {
 		return position;
@@ -109,7 +108,7 @@ public class Candidate {
 
 	@Override
 	public String toString() {
-		return "Candidate [id=" + id + ", position=" + position + ", firstName=" + firstName + ", lastName=" + lastName
+		return "Candidate [ position=" + position + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", email=" + email + ", contect=" + contect + ", skills=" + skills + ", joining=" + joining
 				+ ", comments=" + comments + ", status=" + status + "]";
 	}
