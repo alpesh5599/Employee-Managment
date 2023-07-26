@@ -112,4 +112,5 @@ public class Candidate extends AbstactClass{
 				+ ", email=" + email + ", contect=" + contect + ", skills=" + skills + ", joining=" + joining
 				+ ", comments=" + comments + ", status=" + status + "]";
 	}
+
 }

@@ -1,5 +1,6 @@
 package com.nexscend.employee.management.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.nexscend.employee.management.entity.Candidate;
 import com.nexscend.employee.management.model.CandidateModel;
+import com.nexscend.employee.management.model.CandidatewithFileModel;
 import com.nexscend.employee.management.repository.CandidateRepository;
 import com.nexscend.employee.management.utils.Status;
 
@@ -57,11 +59,11 @@ public class CandidateServiceImpl implements CandidateService {
 		return response;
 	}
 
-//	@Override
-//	public List<CandidateResponse> getAllCandidateDetails() {
-//		
-//		return candidateRepository
-//	}
+	@Override
+	public List<CandidatewithFileModel> getAllCandidate() {
+		// TODO Auto-generated method stub
+		return candidateRepository.findCandidateModel();
+	}
 
 //	public List<Candidate> getAllCandidate(){
 //		return candidateRepository.findAll();

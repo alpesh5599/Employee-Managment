@@ -1,6 +1,7 @@
 package com.nexscend.employee.management.service;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,6 +25,8 @@ import com.nexscend.employee.management.model.ResponseBean;
 import com.nexscend.employee.management.property.DocumentStorageProperty;
 import com.nexscend.employee.management.repository.DocumentRepository;
 import com.nexscend.employee.management.utils.Status;
+
+import jakarta.servlet.http.Part;
 
 @Service
 public class DocumentServiceImpl implements DocumentService {
@@ -131,7 +134,19 @@ public class DocumentServiceImpl implements DocumentService {
 	    
 		return response;
 	}
-	private void storeDocument(MultipartFile file, String hash) throws IOException {
+	private void storeDocument(InputStream inputStream, String hash) throws IOException {
+		
+		if (this.fileLocation != null) {
+			logger.info("File save at Location " + this.fileLocation);
+
+			Path targetLocation = this.fileLocation.resolve(hash);
+			Files.copy(inputStream, targetLocation);
+		} else {
+			logger.info("File is not saved in local system, because not provided the path in property file");
+		}
+	}
+	
+private void storeDocument(MultipartFile file, String hash) throws IOException {
 		
 		if (this.fileLocation != null) {
 			logger.info("File save at Location " + this.fileLocation);
@@ -196,6 +211,82 @@ public class DocumentServiceImpl implements DocumentService {
 			response.setData(null);
 		}
 
+		return response;
+	}
+
+	@Override
+	public Map<String, String> saveDocument(Part part,InputStream inputStream, String contentType, Integer contentLength) {
+		DocumentDetails entity = new DocumentDetails();
+		
+		byte[] bytes = new byte[contentLength];
+		int data;
+		int i = 0;
+        try {
+			while ((data = inputStream.read()) != -1) {
+					bytes[i] = (byte) data;
+					i++;
+			}
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		}
+        
+		String fileName = part.getSubmittedFileName();
+		
+		entity.setName(fileName);
+		entity.setFileData(bytes);
+		entity.setType(contentType);
+		entity.setSize((double) DataSize.ofBytes((bytes.length)).toMegabytes());
+		entity.setStatus(Status.ACTIVE.getStatusValue());
+
+		try {
+			entity.setHash();
+		} catch (NoSuchAlgorithmException e) {
+			logger.error(e.getMessage());
+		}
+
+		// StoreDocument
+		try {
+			storeDocument(inputStream, entity.getHash());
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
+
+		// Save in DB
+		Map<String, String> response = new HashMap<>();
+		DocumentDetails save = repository.save(entity);
+		if (save.getId() != null) {
+			response.put("response", "Thank You For Applying to Nexscend Technologies");
+		} else {
+			response.put("response", "Please select the valid file type");
+		}
+
+		return response;
+	}
+
+	private String getFileName(Part part) {
+		String contentDispositionHeader = part.getHeader("content-disposition");
+		String[] elements = contentDispositionHeader.split(";");
+		for (String element : elements) {
+			if (element.trim().startsWith("filename")) {
+				return element.substring(element.indexOf('=') + 1).trim().replace("\"", "");
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public Map<String, String> saveDocument(byte[] fileBytes) {
+		DocumentDetails entity = new DocumentDetails();
+		entity.setFileData(fileBytes);
+		
+		Map<String, String> response = new HashMap<>();
+		DocumentDetails save = repository.save(entity);
+		if (save.getId() != null) {
+			response.put("response", "Thank You For Applying to Nexscend Technologies");
+		} else {
+			response.put("response", "Please select the valid file type");
+		}
+		
 		return response;
 	}
 

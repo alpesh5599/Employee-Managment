@@ -1,6 +1,10 @@
 package com.nexscend.employee.management.model;
 
+import java.util.Arrays;
+
 import org.springframework.stereotype.Component;
+
+import com.nexscend.employee.management.entity.DocumentDetails;
 
 @Component
 public class CandidateModel {
@@ -16,6 +20,37 @@ public class CandidateModel {
 	private String comments;
 	
 	private String fileName;
+	
+//	DocumentDetails file;
+	private byte[] fileData;
+	
+	private String name;
+	
+	private String type;
+	
+	public byte[] getFileData() {
+		return fileData;
+	}
+
+	public void setFileData(byte[] fileData) {
+		this.fileData = fileData;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public Integer getId() {
 		return id;
@@ -99,9 +134,10 @@ public class CandidateModel {
 
 	@Override
 	public String toString() {
-		return "CandidateResponse [id=" + id + ", position=" + position + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", email=" + email + ", contect=" + contact + ", skills=" + skills + ", joining=" + joining
-				+ ", comments=" + comments + ", fileName=" + fileName + "]";
+		return "CandidateModel [id=" + id + ", position=" + position + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", email=" + email + ", contact=" + contact + ", skills=" + skills + ", joining=" + joining
+				+ ", comments=" + comments + ", fileName=" + fileName + ", fileData=" + Arrays.toString(fileData)
+				+ ", name=" + name + ", type=" + type + "]";
 	}
 
 }

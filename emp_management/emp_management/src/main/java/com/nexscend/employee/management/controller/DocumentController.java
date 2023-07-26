@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.nexscend.employee.management.model.ResponseBean;
 import com.nexscend.employee.management.service.DocumentService;
 
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
@@ -131,11 +133,34 @@ public class DocumentController {
 	
 	
 	@PostMapping("/upload")
-	public void uploadFile(HttpServletRequest request) throws IOException {
-//	 System.out.println(fileData.get);
-		InputStream inputStream = request.getInputStream();
+	public ResponseEntity<Object> uploadFile(HttpServletRequest request) throws IOException {
+		Map<String, String> responseMap = null;
+		if (request == null) {
+			responseMap = new HashMap<String, String>();
+			responseMap.put("response", "No file hasbeen chosen or chosen file has no content");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseMap);
+		}
 		
-		
+		try {
+			InputStream inputStream = request.getPart("files").getInputStream();
+			String contentType = request.getContentType();
+			int contentLength = request.getContentLength();
+
+			responseMap = documentService.saveDocument(request.getPart("files"), inputStream, contentType, contentLength);
+			
+		} catch (IOException | ServletException e) {
+			System.err.println(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(responseMap);
+	}
+	
+	@PostMapping("/upload1")
+	public ResponseEntity<Object> uploadFile(@RequestBody byte[] fileBytes) {
+		if (fileBytes == null || fileBytes.length == 0) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty");
+		}
+		Map<String, String> saveDocument = documentService.saveDocument(fileBytes);
+		return ResponseEntity.status(HttpStatus.CREATED).body(saveDocument);
 	}
 	
 	
@@ -144,4 +169,7 @@ public class DocumentController {
 		ResponseBean fileDB = documentService.getFile(id);
 		return fileDB;
 	}
+	
+	
+	
 }

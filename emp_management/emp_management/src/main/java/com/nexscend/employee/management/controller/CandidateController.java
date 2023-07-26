@@ -1,5 +1,6 @@
 package com.nexscend.employee.management.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nexscend.employee.management.model.CandidateModel;
+import com.nexscend.employee.management.model.CandidatewithFileModel;
 import com.nexscend.employee.management.service.CandidateService;
 
 @RestController
@@ -48,11 +51,11 @@ public class CandidateController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(saveCandidate);
 	}
 
-//	@GetMapping("/getAll/candidate")
-//	public List<CandidateResponse> getAllCandidateData() {
-//		logger.info("Fetching All Candidate Details from Database...");
-//		return candidateService.getAllCandidate();
-//	}
+	@GetMapping("/getAll")
+	public List<CandidatewithFileModel> getAllCandidateData() {
+		logger.info("Fetching All Candidate Details from Database...");
+		return candidateService.getAllCandidate();
+	}
 //
 //	@GetMapping("/getCandidate/ById/{id}")
 //	public Candidate getCandidateDataById(@PathVariable Integer id) {
